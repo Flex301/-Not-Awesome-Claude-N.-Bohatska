@@ -177,7 +177,7 @@ results = co.rerank(
 
 ---
 
-## 🎰 Генератор постів
+## 🎰 Генератор постів (random)
 
 ```bash
 python bohatska_generator.py --mode full --seed 42
@@ -198,6 +198,53 @@ python bohatska_generator.py --mode full --seed 42
 ```
 
 **Режими:** `spokiy`, `stats`, `diagnosis`, `client`, `thread`, `full`
+
+---
+
+## 🤖 AI Генератор нових постів
+
+Генерує **нові** пости через LLM, використовуючи дамп 1230 постів як few-shot приклади.
+
+### Встановлення
+
+```bash
+pip install openai
+```
+
+### Налаштування
+
+```bash
+# OpenAI
+export BOHATSKA_API_KEY="sk-..."
+
+# Gemini (через OpenAI-compatible API)
+export BOHATSKA_API_KEY="your-gemini-key"
+export BOHATSKA_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+export BOHATSKA_MODEL="gemini-2.0-flash"
+
+# Будь-який OpenAI-compatible API (Ollama, LM Studio, etc.)
+export BOHATSKA_API_KEY="any"
+export BOHATSKA_BASE_URL="http://localhost:11434/v1"
+export BOHATSKA_MODEL="llama3"
+```
+
+### Використання
+
+```bash
+# Один пост у режимі full (мікс паттернів)
+python bohatska_ai_generator.py
+
+# 5 постів у стилі "Спокій — це не X"
+python bohatska_ai_generator.py --mode spokiy --count 5
+
+# Діагноз з буллет-пойнтами через Gemini
+python bohatska_ai_generator.py --mode diagnosis --model gemini-2.0-flash
+
+# Всі доступні режими
+python bohatska_ai_generator.py --list-modes
+```
+
+**Режими:** `spokiy`, `stats`, `diagnosis`, `client`, `guru`, `full`
 
 ---
 
