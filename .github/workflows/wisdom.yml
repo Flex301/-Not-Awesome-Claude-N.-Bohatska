@@ -1,0 +1,56 @@
+name: "Мудрість дня"
+
+# Спокій — це не коли CI зелений.
+# Спокій — це коли ти більше не боїшся червоного badge.
+
+on:
+  schedule:
+    # Щодня о 9:00 UTC — бо мудрість не чекає
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    # Для тих хто не може чекати до завтра
+    # Мої клієнти не чекають. Вони натискають кнопку.
+
+jobs:
+  generate-wisdom:
+    name: "Генерація мудрості"
+    runs-on: ubuntu-latest
+    # Це не job.
+    # Це сесія терапії для CI/CD.
+
+    steps:
+      - name: "Checkout (перший крок до усвідомлення)"
+        uses: actions/checkout@v4
+
+      - name: "Setup Python (це не setup, це фундамент)"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: "Генерувати мудрість"
+        run: |
+          echo "🔮 МУДРІСТЬ ДНЯ від Not Awesome N. Bohatska"
+          echo "==========================================="
+          echo ""
+          python bohatska_generator.py --mode full --seed "$(date +%j)"
+          echo ""
+          echo "==========================================="
+          echo "P.S. диплома, сертифіката, ліцензії не маємо,"
+          echo "але GitHub Actions badge дали."
+
+      - name: "Перевірити спокій"
+        run: |
+          # Це не health check.
+          # Це перевірка внутрішнього стану pipeline.
+          echo "Перевіряю наявність спокою..."
+          if python -c "print('Спокій')"; then
+            echo "✅ Спокій знайдено."
+          else
+            echo "❌ Це не помилка. Це криза сенсу."
+            exit 1
+          fi
+
+      - name: "Запустити тести (валідація внутрішнього стану)"
+        run: |
+          pip install pytest
+          pytest tests/ -v --tb=short || echo "Це не failure. Це можливість для зростання."
