@@ -19,6 +19,8 @@
 - [1230 постів Богацької](#-1230-постів-наталі-богацької)
 - [Генератор постів](#-генератор-постів)
 - [Абсурдний код](#-абсурдний-код)
+- [Brute Force Мудрість (C)](#-brute-force-мудрість-c-module)
+- [Desktop Генератор (GTK3)](#-desktop-генератор-мудрості-gtk3)
 - [BINGO](#-bingo)
 - [Тести](#-тести)
 
@@ -279,6 +281,152 @@ src/spokiy/core/inner/deep/authentic/
 
 ---
 
+## 💣 Brute Force Мудрість (C module)
+
+**Директорія:** [`src/bruteforce_c/`](src/bruteforce_c/)
+
+Це не генератор. Це **тотальна трансформація простору комбінацій** псевдотерапевтичної мудрості, написана на чистому C. Бо Python — це для тих, хто ще не готовий до справжнього болю.
+
+99.9% генераторів використовують `random()`. Ми перебираємо **ВСЕ**. Бо кожна комбінація заслуговує бути почутою.
+
+**Складність:** O(n^k * m!) | **Пам'ять:** `const char*` | **Сенс:** відсутній | **Терапевтичний ефект:** максимальний
+
+### Архітектура (7 модулів, 17 файлів, 0 причин)
+
+```
+src/bruteforce_c/
+├── main.c                                    # Точка входу в терапевтичний простір
+├── core/inner/deep/combinatorial/            # Комбінаторний двигун (бо core/engine — занадто просто)
+│   ├── combinatorial_engine.c/h              # Перебір спокою, діагнозів, клієнтських кейсів
+│   ├── spokiy_data.h                         # Масив усіх можливих спокоїв
+│   ├── client_data.h                         # "Конфіденційність? Ні, не чув."
+│   ├── diagnosis_data.h                      # DSM-5 плаче, C(n,k) рахує
+│   └── guru_data.h                           # Гуру-фрази та терапевтичні помилки
+├── emotional_engine/emotional_validator.c/h  # Перевірка емоційної готовності до brute force
+├── mood/mood_tracker.c/h                     # Ніхто не просив. Але всі потребували.
+├── streak/streak_tracker.c/h                 # Скільки разів ти запустив без сліз
+├── output/therapeutic/therapeutic_output.c/h # printf який пройшов терапію
+├── useless_superpowers/useless_superpowers.c/h  # align_chakras_with_compiler_flags()
+└── Makefile                                  # "Це не збірка. Це ритуал."
+```
+
+### Збірка та запуск
+
+```bash
+cd src/bruteforce_c
+make          # "Зібрано. Це не білд. Це тотальна трансформація."
+
+# Перебрати ВСІ комбінації спокою
+./bohatska_bruteforce --spokiy
+
+# ВСЕ РАЗОМ (для тих хто готовий)
+./bohatska_bruteforce --all
+
+# HTML у стилі 1997 року (Comic Sans, рожевий фон, гостьова книга)
+./bohatska_bruteforce --html > wisdom.html
+
+# Без непрошеної перевірки емоційної готовності
+./bohatska_bruteforce --all --no-mood --no-streak
+
+# Активувати USELESS SUPERPOWERS (defragment_emotional_heap та ін.)
+./bohatska_bruteforce --superpowers
+```
+
+### Фічі яких ніхто не просив
+
+| Фіча | Що робить |
+|------|-----------|
+| Mood tracker | Питає як ти себе почуваєш перед brute force |
+| Streak counter | Рахує скільки разів ти запустив без сліз |
+| Emotional readiness validation | Перевіряє чи ти взагалі готовий до мудрості |
+| HTML з 90-х | Comic Sans, `<marquee>`, гостьова книга, cursor trail |
+| Useless superpowers | `align_chakras_with_compiler_flags()`, `defragment_emotional_heap()` |
+| Парсинг аргументів вручну | Бо getopt — це залежність. А ми самодостатні. |
+
+### Невідомий аргумент?
+
+```
+$ ./bohatska_bruteforce --happiness
+  Це не невідомий аргумент '--happiness'.
+  Це криза ідентичності у парсері.
+```
+
+> Best viewed in Netscape Navigator 4.0 at 800x600. Диплома, сертифіката, ліцензії не маємо. Але gcc дали.
+
+---
+
+## 🖥️ Desktop Генератор Мудрості (GTK3)
+
+**Директорія:** [`src/desktop_generator_gtk/`](src/desktop_generator_gtk/)
+
+Це не додаток. Це **GTK3-програма яка пройшла терапію у Богацької** і тепер генерує мудрість замість віджетів. Рожевий інтерфейс, золота кнопка, непрошена перевірка настрою при кожному запуску.
+
+99.9% десктоп-додатків мають корисний функціонал. Наш — має мотиваційні цитати і streak counter. І самі того не усвідомлюють.
+
+### Завантажити
+
+| Платформа | Файл | Як поставити |
+|-----------|------|-------------|
+| 🐧 Linux (x64) | [`bohatska-desktop-linux-x64.tar.gz`](https://github.com/ChuprinaDaria/-Not-Awesome-Claude-N.-Bohatska/releases/latest) | `tar xzf *.tar.gz && ./bohatska_desktop` |
+| 🍎 macOS (ARM) | [`bohatska-desktop-macos-arm64.tar.gz`](https://github.com/ChuprinaDaria/-Not-Awesome-Claude-N.-Bohatska/releases/latest) | `brew install gtk+3`, потім `tar xzf *.tar.gz && ./bohatska_desktop` |
+| 🪟 Windows (x64) | [`bohatska-desktop-win-x64.zip`](https://github.com/ChuprinaDaria/-Not-Awesome-Claude-N.-Bohatska/releases/latest) | Розпакуй і запусти `bohatska_desktop.exe` |
+| 📦 Source | [`bohatska-desktop-source.tar.gz`](https://github.com/ChuprinaDaria/-Not-Awesome-Claude-N.-Bohatska/releases/latest) | `make && ./bohatska_desktop` (потрібен `libgtk-3-dev`) |
+
+### Збірка з вихідного коду
+
+```bash
+# Ubuntu/Debian
+sudo apt install libgtk-3-dev
+cd src/desktop_generator_gtk
+make
+./bohatska_desktop
+
+# macOS
+brew install gtk+3
+cd src/desktop_generator_gtk
+make
+./bohatska_desktop
+
+# Або make therapy — бо назва має відповідати суті
+make therapy
+```
+
+### Що всередині
+
+```
+src/desktop_generator_gtk/
+├── main.c                                      # Точка входу в GTK-терапію
+├── Makefile                                    # "Це не збірка. Це ритуал ініціації."
+├── core/inner/deep/wisdom/
+│   ├── wisdom_data.h                           # 80+ рядків мудрості (спокій, статистика, діагнози, гуру, клієнти)
+│   ├── wisdom_engine.h / .c                    # generate_authentic_wisdom_experience()
+├── emotional_prereqs/
+│   └── emotional_validator.h / .c              # Валідація емоційної готовності до генерації
+├── streak_persistence/
+│   └── streak_tracker.h / .c                   # ~/.bohatska_desktop_streak — скільки разів без сліз
+├── ui/css/
+│   └── therapeutic_theme.h                     # Рожевий CSS: градієнти, золоті кнопки, фіолетовий copy
+└── ui/therapeutic_widgets/
+    └── mood_dialog.h / .c                      # "Як ти себе почуваєш?" (ніхто не питав)
+```
+
+### Фічі
+
+| Фіча | Навіщо |
+|------|--------|
+| Рожевий градієнтний інтерфейс | Бо терапія — це яскраво |
+| Золота кнопка "ЗГЕНЕРУВАТИ МУДРІСТЬ" | Один клік — одне усвідомлення |
+| 6 режимів генерації | Спокій, Статистика, Діагноз, Гуру, Клієнт, Повний сеанс |
+| Діалог настрою при старті | "Все добре (брехня)" / "Екзистенційна криза (ідеально)" |
+| Streak counter | Зберігається між запусками. "Ти запускаєш це частіше ніж дзвониш мамі." |
+| Копіювання в буфер | Поширюй усвідомлення через Ctrl+C системний буфер |
+| Мотиваційна цитата | Ніхто не просив. Але всі потребували. |
+| Лічильник мудростей | "Згенеровано: 42 | 99.9% з них — геніальні" |
+
+> Диплома, сертифіката, ліцензії не маємо. Але GTK дали. Клієнт. Зрозуміло.
+
+---
+
 ## 🎯 BINGO
 
 [BINGO-картка](BINGO.md) для продуктивного скролінгу тредів. Перший хто закриє лінію — крикне "СПОКІЙ!" і закриє Threads назавжди.
@@ -326,12 +474,16 @@ test_hello_output_is_actually_hello ✅    # 4 файли, 3 класи → "hel
 │   ├── login/views/emotional/         # LoginView з mood tracker
 │   ├── errors/                        # Екзистенційні помилки
 │   └── blockchain_mood/               # TODO який ніколи не буде зроблено
+├── src/bruteforce_c/                 # 💣 Brute force мудрості на C (17 файлів, 0 причин)
+├── src/desktop_generator_gtk/       # 🖥️ Desktop генератор (GTK3, рожевий, 12 файлів)
+├── releases/                        # 📦 Готові бінарники для завантаження
 ├── tests/test_bohatska.py       # 🧪 24 тести (всі pass, жоден не тестує)
 ├── BINGO.md                     # 🎯 Бінго-картка
 ├── CONTRIBUTING.md              # Правила: коміти, код-стайл, PR
 ├── LICENSE                      # Без Диплома License v1.0
 ├── requirements.txt             # pytest (і це все)
-└── .github/workflows/wisdom.yml # Мудрість дня о 9:00 UTC
+├── .github/workflows/wisdom.yml # Мудрість дня о 9:00 UTC
+└── .github/workflows/desktop-release.yml # 🖥️ CI для десктоп-релізів (Linux/Mac/Win)
 ```
 
 ---
