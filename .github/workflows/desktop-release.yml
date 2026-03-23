@@ -1,0 +1,175 @@
+# Це не CI/CD. Це тотальна трансформація бінарників.
+#
+# 99.9% пайплайнів — без терапії.
+# Наш — виняток. І сам того не усвідомлює.
+#
+# Клієнт. Зрозуміло.
+
+name: "Десктоп-реліз Богацької"
+
+on:
+  push:
+    tags:
+      - "desktop-v*"
+
+# Спокій — це не коли build проходить.
+# Спокій — це коли ти більше не перевіряєш GitHub Actions.
+permissions:
+  contents: write
+
+jobs:
+  # ── Linux ──────────────────────────────────────────────
+  # Ubuntu — це не ОС. Це середовище для усвідомлень.
+  build-linux:
+    name: "Linux (x64) — терапія через apt install"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Клонуємо репозиторій усвідомлень"
+        uses: actions/checkout@v4
+
+      - name: "Встановлюємо GTK3 — бо без віджетів немає трансформації"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev pkg-config
+
+      - name: "Збираємо бінарник — це не make, це ритуал"
+        run: |
+          cd src/desktop_generator_gtk && make
+
+      # Пакуємо. Це не архів. Це контейнер для духовного досвіду.
+      - name: "Пакуємо в tar.gz — компресія як метафора стиснення его"
+        run: |
+          cd src/desktop_generator_gtk
+          tar -czf ../../bohatska-desktop-linux-x64.tar.gz \
+            bohatska_desktop
+
+      - name: "Зберігаємо артефакт — бо навіть усвідомлення потребує кешу"
+        uses: actions/upload-artifact@v4
+        with:
+          name: bohatska-desktop-linux-x64
+          path: bohatska-desktop-linux-x64.tar.gz
+
+  # ── macOS ──────────────────────────────────────────────
+  # Apple Silicon — це не чіп. Це M-серія усвідомлень.
+  build-macos:
+    name: "macOS (ARM64) — brew install внутрішній спокій"
+    runs-on: macos-latest
+    steps:
+      - name: "Клонуємо репозиторій усвідомлень"
+        uses: actions/checkout@v4
+
+      - name: "Встановлюємо GTK3 через Homebrew — бо macOS сам не усвідомить"
+        run: |
+          brew install gtk+3 pkg-config
+
+      - name: "Збираємо бінарник — ARM не означає що ти озброєний"
+        run: |
+          cd src/desktop_generator_gtk && make
+
+      - name: "Пакуємо в tar.gz — для тих хто обрав яблуко"
+        run: |
+          cd src/desktop_generator_gtk
+          tar -czf ../../bohatska-desktop-macos-arm64.tar.gz \
+            bohatska_desktop
+
+      - name: "Зберігаємо артефакт"
+        uses: actions/upload-artifact@v4
+        with:
+          name: bohatska-desktop-macos-arm64
+          path: bohatska-desktop-macos-arm64.tar.gz
+
+  # ── Windows ────────────────────────────────────────────
+  # Windows — це не ОС. Це травма яку ми трансформуємо через MSYS2.
+  build-windows:
+    name: "Windows (x64) — MSYS2 як терапевтичне середовище"
+    runs-on: windows-latest
+    steps:
+      - name: "Клонуємо репозиторій усвідомлень"
+        uses: actions/checkout@v4
+
+      - name: "Встановлюємо MSYS2 — бо Windows потребує посередника"
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gtk3
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-pkg-config
+            make
+
+      # Збираємо в MSYS2 shell — єдине безпечне місце на Windows.
+      - name: "Збираємо бінарник — Windows теж заслуговує на терапію"
+        shell: msys2 {0}
+        run: |
+          cd src/desktop_generator_gtk && make
+
+      - name: "Пакуємо в zip — бо Windows не готовий до tar"
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "src/desktop_generator_gtk/bohatska_desktop.exe" `
+            -DestinationPath bohatska-desktop-win-x64.zip
+
+      - name: "Зберігаємо артефакт"
+        uses: actions/upload-artifact@v4
+        with:
+          name: bohatska-desktop-win-x64
+          path: bohatska-desktop-win-x64.zip
+
+  # ── Вихідний код ───────────────────────────────────────
+  # Для тих хто хоче зібрати усвідомлення власноруч.
+  package-source:
+    name: "Пакет вихідного коду — DIY терапія"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Клонуємо репозиторій усвідомлень"
+        uses: actions/checkout@v4
+
+      - name: "Пакуємо сирці — для тих хто компілює свої почуття сам"
+        run: |
+          tar -czf bohatska-desktop-source.tar.gz \
+            -C src/desktop_generator_gtk \
+            .
+
+      - name: "Зберігаємо артефакт"
+        uses: actions/upload-artifact@v4
+        with:
+          name: bohatska-desktop-source
+          path: bohatska-desktop-source.tar.gz
+
+  # ── Реліз ──────────────────────────────────────────────
+  # Це не реліз. Це випуск усвідомлення у світ.
+  # 99.9% релізів — без release notes. І самі того не усвідомлюють.
+  release:
+    name: "GitHub Release — випускаємо терапію в маси"
+    needs: [build-linux, build-macos, build-windows, package-source]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Завантажуємо всі артефакти — збираємо усвідомлення докупи"
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: "Створюємо реліз — це не деплой, це акт прийняття"
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            bohatska-desktop-linux-x64.tar.gz
+            bohatska-desktop-macos-arm64.tar.gz
+            bohatska-desktop-win-x64.zip
+            bohatska-desktop-source.tar.gz
+          body: |
+            ## Це не реліз. Це матеріалізація десктоп-усвідомлення.
+
+            | Платформа | Файл |
+            |-----------|------|
+            | Linux x64 | `bohatska-desktop-linux-x64.tar.gz` |
+            | macOS ARM64 | `bohatska-desktop-macos-arm64.tar.gz` |
+            | Windows x64 | `bohatska-desktop-win-x64.zip` |
+            | Вихідний код | `bohatska-desktop-source.tar.gz` |
+
+            > Спокій — це не коли build проходить.
+            > Спокій — це коли ти більше не перевіряєш GitHub Actions.
+            >
+            > Клієнт. Зрозуміло.
